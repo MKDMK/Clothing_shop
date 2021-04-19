@@ -18,7 +18,10 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
   image: {
-    marginRight: '10px',
+    marginLeft: '25px',
+    
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   menuButton: {
     marginRight: theme.spacing(2),
