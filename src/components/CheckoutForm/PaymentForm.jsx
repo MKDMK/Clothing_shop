@@ -30,14 +30,12 @@ const PaymentForm = ({checkoutToken, shippingData, backStep, onCaptureCheckout, 
                     county_state: shippingData.shippingSubdivision,
                     postal_zip_code: shippingData.zip,
                     country: shippingData.shippingCountry,
-            },
-            fulfillment: { shipping_method: shippingData.shippingOption },
-            payment: {
-              gateway: 'stripe',
-              stripe: {
-                payment_method_id: paymentMethod.id,
-              }
-            }
+                },
+                fulfillment: { shipping_method: shippingData.shippingOption },
+                payment: { gateway: 'stripe', stripe: {
+                    payment_method_id: paymentMethod.id,
+                    }
+                }
 
             }
             onCaptureCheckout(checkoutToken.id, orderData);
