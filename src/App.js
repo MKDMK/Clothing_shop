@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, List } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Navbar, Products, Cart, Checkout } from './components';
+import { Navbar, Products, Cart, Checkout, Search } from './components';
 import { commerce } from './lib/commerce';
 
 const App = () => {
@@ -11,6 +11,29 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+  
+
+  //_____________________________________________________________________________
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
+
+  const filterProducts = (products, query) => {
+      if (!query) {
+          return products;
+      }
+  
+      return products.filter((product) => {
+          const productName = product.name.toLowerCase();
+          return productName.includes(query);
+      });
+  };
+
+  useEffect(() => {
+      fetchProducts();
+    }, []);
+//_______________________________________________________________________________
+
+
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
@@ -69,16 +92,19 @@ const App = () => {
     fetchCart();
   }, []);
 
+
+  const filteredProducts = filterProducts(products, query);
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   return (
     <Router>
       <div style={{ display: 'flex' }}>
         <CssBaseline />
-        <Navbar totalItems={cart.total_items} handleDrawerToggle={handleDrawerToggle} />
+        <Navbar totalItems={cart.total_items} handleDrawerToggle={handleDrawerToggle} >
+        </Navbar>
         <Switch>
           <Route exact path="/">
-            <Products products={products} onAddToCart={handleAddToCart} handleUpdateCartQty />
+            <Products products={filteredProducts} onAddToCart={handleAddToCart} handleUpdateCartQty />
           </Route>
           <Route exact path="/cart">
             <Cart cart={cart} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} onEmptyCart={handleEmptyCart} />

@@ -4,6 +4,8 @@ import { ShoppingCart} from '@material-ui/icons';
 import {Link, useLocation} from 'react-router-dom';
 import logo from '../../assets/intruz.png'
 import useStyles from './styles';
+import Search from '../Search/Search';
+
 
 const Navbar = ({totalItems}) => {
     const classes = useStyles();
@@ -15,8 +17,8 @@ const Navbar = ({totalItems}) => {
                 <Toolbar>
                     <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
                         <img src={logo} alt="Commerce.js" height="100px" className={classes.image}/>
-                        
                     </Typography>
+                    <Search />
                     <div className={classes.grow}/>
                     {location.pathname === '/' &&(
                     <div className={classes.button}>
@@ -24,11 +26,9 @@ const Navbar = ({totalItems}) => {
                             <Badge badgeContent={totalItems} color="secondary">
                                 <ShoppingCart />
                             </Badge>
-                            
                         </IconButton>
                     </div>) }
                 </Toolbar>
-
             </AppBar>
         </>
     )

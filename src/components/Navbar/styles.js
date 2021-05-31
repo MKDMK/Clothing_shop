@@ -17,6 +17,11 @@ export default makeStyles((theme) => ({
     display: 'flex',
     textDecoration: 'none',
   },
+  searchBar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+ 
+  },
   image: {
     marginLeft: '25px',
     
